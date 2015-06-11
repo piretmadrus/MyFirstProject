@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"
+	media="all" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css"
+	media="all" />
+
+</head>
+
+
+
+<body>
+	<div class="container-fluid">
+		<h1 id="" class="text-center">PERSON INFO</h1>
+	</div>
+	<hr />
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-1 panel">Id</div>
+			<div class="col-sm-2">First name</div>
+			<div class="col-sm-2">Last name</div>
+			<div class="col-sm-2">Identity code</div>
+			<div class="col-sm-3">Birth date</div>
+			<div class="col-sm-1">Created by</div>
+			<div class="col-sm-1">Updated by</div>
+		</div>
+		<div class="row" th:each="person : ${persons}">
+
+			<div class="col-sm-1 panel" th:text="${person.person}"></div>
+			<div class="col-sm-2" th:text="${person.firstName}"></div>
+			<div class="col-sm-2" th:text="${person.lastName}"></div>
+			<div class="col-sm-2" th:text="${person.identityCode}"></div>
+			<div class="col-sm-3" th:text="${person.birthDate}"></div>
+			<div class="col-sm-1" th:text="${person.createdBy}"></div>
+			<div class="col-sm-1" th:text="${person.updatedBy}"></div>
+		</div>
+
+
+	</div>
+
+
+	<br />
+	
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+	
+	<h2 th:text="${title}">Title</h2>
+	<br />
+	<h2 th:text="${person.firstName}">Title</h2>
+
+</body>
+</html>
