@@ -32,6 +32,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String logIn() {
+		log.info("LOGIN");
 		return "login";
 	}
 	
