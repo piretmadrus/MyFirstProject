@@ -6,6 +6,8 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,24 +37,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
 		 auth
-         .jdbcAuthentication().dataSource(dataSource)
-             .usersByUsernameQuery("select * from users where username=?")
-             .authoritiesByUsernameQuery("select username, authority from user_roles where username =?");
+         .jdbcAuthentication().dataSource(dataSource).passwordEncoder(new Md5PasswordEncoder())
+             .usersByUsernameQuery("select username, passw, status from user_account where username=?")
+             .authoritiesByUsernameQuery("select u.username, r.authority from user_account u, user_roles r where u.username =?");
 	}
 
 	protected void configure(HttpSecurity http) throws Exception {		
+		
+		/* http.authorizeRequests()
+		 	.antMatchers("/", "/app/subjektid/**").access("hasAnyRole('admin', 'admin1')")
+			
+			.and()
+			  .formLogin().loginPage("/app/login").failureUrl("/login?error")
+			  .usernameParameter("username").passwordParameter("password")
+			.and()
+			  .logout().logoutSuccessUrl("/login?logout")
+			
+			.and()
+			  .csrf();*/
+		
+		/* http.authorizeRequests()
+	            .anyRequest().authenticated()                                                   
+	            .and()
+	            .formLogin().loginPage("/app/login").permitAll()
+				.and()
+				.logout()
+				.permitAll().logoutSuccessUrl("/app/login");*/
+		
 		
 		http.headers().frameOptions().disable()
 				.requestMatcher(new RegexRequestMatcher(".*", null)).csrf()
 				.disable()
 				.authorizeRequests()
-				//.antMatchers("/", "/app/subjektid/**").permitAll()
+				.antMatchers("/", "/app/tere/**").permitAll()
+				//.antMatchers("/", "/app/subjektid/**").access("hasRole('admin') and hasRole ('admin1')")
 				.antMatchers("/", "/app/subjektid/**").access("hasAnyRole('admin', 'admin1')")
 				.and()
 				// .httpBasic()
-				.formLogin().loginPage("/app/login").permitAll()
+				.formLogin().loginPage("/app/login").defaultSuccessUrl("/app/subjektid").permitAll()
 				.and()
 				.logout()
-				.permitAll().invalidateHttpSession(true).logoutSuccessUrl("/app/login");
+				;
 	}
 }

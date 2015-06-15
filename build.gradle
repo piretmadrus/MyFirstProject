@@ -50,6 +50,7 @@ dependencies {
     compile 'org.springframework:spring-test:4.1.6.RELEASE'
   
     compile 'org.springframework.boot:spring-boot-starter-security:1.2.3.RELEASE'
+    compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.2.RELEASE'
     
     
     
