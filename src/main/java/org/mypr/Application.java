@@ -21,7 +21,9 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Bean
+	//need bean'id on siin üsna ebavajalikud, st et ka MyprListener klass.
+	
+	/*@Bean
 	public HttpSessionListener httpSessionListener(){
 	    return new MyprListener();
 	}
@@ -29,5 +31,5 @@ public class Application {
 	@Bean
 	public HttpSessionEventPublisher eventPublisher() {
 		return new HttpSessionEventPublisher();
-	}
+	}*/
 }
