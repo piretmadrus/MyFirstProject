@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/app/subjektid/**").access("hasAnyRole('admin', 'admin1')")
 				.and()
 				// .httpBasic()
-				.formLogin().loginPage("/app/login").defaultSuccessUrl("/app/subjektid").permitAll()
+				.formLogin().loginPage("/app/login").defaultSuccessUrl("/app/firstpage").permitAll()
 				.and()
 				.logout()
 				;
